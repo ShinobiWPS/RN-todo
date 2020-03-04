@@ -1,22 +1,28 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { Text, View, Platform, StatusBar } from 'react-native'
+
+import Todo_Item from './src/Todo_Item'
 
 export default function App() {
-  return (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
-      <Text>bla</Text>
-      <View style={{ width: 50, height: 50, backgroundColor: 'powderblue' }} />
-      <View style={{ width: 50, height: 50, backgroundColor: 'skyblue' }} />
-      <View style={{ width: 50, height: 50, backgroundColor: 'steelblue' }} />
-    </View>
-  );
+	let hasNotch = false
+	if ( Platform.OS === 'android' ) {
+		hasNotch = StatusBar.currentHeight > 24
+	}
+	return (
+		<View
+			style={ {
+				flex: 1,
+				marginTop: hasNotch ? 24 : 0 /* todo-relative space */,
+			} }
+		>
+			<View style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }>
+				<Text style={ { fontSize: 28 } }>Todo</Text>
+			</View>
+			<View style={ { flex: 9 } }>
+				<Todo_Item />
+				<Todo_Item />
+				<Todo_Item />
+			</View>
+		</View>
+	)
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
