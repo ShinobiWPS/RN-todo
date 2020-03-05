@@ -1,7 +1,9 @@
 import { StyleSheet, View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
-export default function Todo_Item() {
+export default function Todo_Item( todo_text ) {
+	const initialState = {}
+	const [todoText, settodoText] = useState( todo_text )
 	return (
 		<View style={ styles.container }>
 			<View style={ styles.iconCheck }>

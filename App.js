@@ -19,8 +19,8 @@ export default function App() {
 				<Text style={ { fontSize: 28 } }>Todo</Text>
 			</View>
 			<View style={ { flex: 9 } }>
-				<Todo_Item />
-				<Todo_Item />
+				<Todo_Item todo_text="dsagf" />
+				<Todo_Item todo_text="compra" />
 				<Todo_Item />
 			</View>
 		</View>
