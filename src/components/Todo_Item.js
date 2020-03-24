@@ -1,19 +1,31 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, CheckBox, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
 
-export default function Todo_Item( todo_text ) {
-	const initialState = {}
-	const [todoText, settodoText] = useState( todo_text )
+import updateStore from '../store_components/updateStore'
+import store from '../store_components/store'
+
+export default function Todo_Item( { id } ) {
+	const todoItem = store[id]
 	return (
 		<View style={ styles.container }>
 			<View style={ styles.iconCheck }>
-				<Text>✅</Text>
+				<CheckBox
+					onValueChange={ ( newvalue ) =>
+						updateStore( { ...todoItem, checked: newvalue } )
+					}
+					value={ todoItem.checked }
+				/>
 			</View>
 			<View style={ styles.todoText }>
-				<Text>text of todo</Text>
+				<Text>{ todoItem.text }</Text>
 			</View>
 			<View style={ styles.iconCheck }>
-				<Text>✅</Text>
+				<CheckBox
+					onValueChange={ ( newvalue ) =>
+						updateStore( { ...todoItem, checked: newvalue } )
+					}
+					value={ todoItem.checked }
+				/>
 			</View>
 		</View>
 	)
