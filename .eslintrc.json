@@ -100,7 +100,8 @@
 		],
 		"react/jsx-tag-spacing": "error",
 		"react/jsx-wrap-multilines": "error",
-		"react/self-closing-comp": "error"
+		"react/self-closing-comp": "error",
+		"react/prop-types": "off"
 	},
 	"settings": {
 		"import/resolver": {
