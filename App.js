@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Text, View, TextInput } from 'react-native'
 
 import Todo_Item from './src/components/Todo_Item'
-import store from './src/store/store'
+import StoreContext from './src/store/storeContext' /*
+import store from './src/store/store' */
 /* import useStore from './src/store_components/useStore' */
 
 export default function App() {
 	const [textInput, settextInput] = useState( '' )
-	const todo_items = Object.keys( store )
 	return (
 		<View
 			style={ {
@@ -32,9 +32,13 @@ export default function App() {
 				/>
 			</View>
 			<View style={ { flex: 9 } }>
-				{ todo_items.map( ( id ) => (
-					<Todo_Item key={ id } id={ id } />
-				) ) }
+				<StoreContext.Consumer>
+					{ ( store ) =>
+						Object.keys( store.storeItems ).map( ( id ) => (
+							<Todo_Item key={ id } id={ id } />
+						) )
+					}
+				</StoreContext.Consumer>
 			</View>
 		</View>
 	)

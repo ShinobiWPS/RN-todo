@@ -1,42 +1,26 @@
-import { StyleSheet, View, Text, CheckBox } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View, Text } from 'react-native'
+import React from 'react'
 
-import { syncTodoItem } from '../utilities/syncTodoItem'
-import store from '../store/store'
-import updateStore from '../store/updateStore'
+import StoreContext from '../store/storeContext'
+import CheckboxPrebuilt from './CheckboxPrebuilt'
 
 export default function Todo_Item( { id } ) {
-	const [todoItem, settodoItem] = useState( store[id] )
 	return (
-		<View style={ styles.container }>
-			<View style={ styles.iconCheck }>
-				<CheckBox
-					onValueChange={ ( newvalue ) =>
-						syncTodoItem( settodoItem, updateStore, {
-							id,
-							...todoItem,
-							checked: newvalue,
-						} )
-					}
-					value={ todoItem.checked }
-				/>
-			</View>
-			<View style={ styles.todoText }>
-				<Text>{ todoItem.text }</Text>
-			</View>
-			<View style={ styles.iconCheck }>
-				<CheckBox
-					onValueChange={ ( newvalue ) =>
-						syncTodoItem( settodoItem, updateStore, {
-							id,
-							...todoItem,
-							checked: newvalue,
-						} )
-					}
-					value={ todoItem.checked }
-				/>
-			</View>
-		</View>
+		<StoreContext.Consumer>
+			{ ( store ) => (
+				<View style={ styles.container }>
+					<View style={ styles.iconCheck }>
+						<CheckboxPrebuilt todoItem={ store.storeItems[id] } />
+					</View>
+					<View style={ styles.todoText }>
+						<Text>{ store.storeItems[id].text }</Text>
+					</View>
+					<View style={ styles.iconCheck }>
+						<CheckboxPrebuilt todoItem={ store.storeItems[id] } />
+					</View>
+				</View>
+			) }
+		</StoreContext.Consumer>
 	)
 }
 const styles = StyleSheet.create( {
