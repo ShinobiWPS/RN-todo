@@ -2,11 +2,11 @@ import { createContext } from 'react'
 
 import storeItems from './storeItems'
 
-function updateStore( todoState ) {
-	const { id, text, checked } = todoState
-	storeItems[id] = { text, checked }
+function updateText( todoState ) {
+	const { id, text } = todoState
+	storeItems[id] = { ...storeItems[id], text }
 	//todo save localstorage
 }
-const StoreContext = createContext( { storeItems, updateStore } )
+const StoreContext = createContext( { storeItems, updateText } )
 
 export default StoreContext
