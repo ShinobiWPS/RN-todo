@@ -2,12 +2,19 @@ import React, { useState } from 'react'
 import { Text, View, TextInput } from 'react-native'
 
 import Todo_Item from './src/components/Todo_Item'
-import StoreContext from './src/store/storeContext' /*
-import store from './src/store/store' */
-/* import useStore from './src/store_components/useStore' */
+import storeItems from './src/store/storeItems'
 
 export default function App() {
 	const [textInput, settextInput] = useState( '' )
+	const [items, setitems] = useState( storeItems )
+
+	function deleteTodo( id ) {
+		const newItems = { ...items }
+		delete newItems[id]
+		setitems( newItems )
+		//todo save localstorage
+	}
+
 	return (
 		<View
 			style={ {
@@ -16,7 +23,7 @@ export default function App() {
 			} }
 		>
 			<View style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }>
-				<Text style={ { fontSize: 28 } }>Todo</Text>
+				<Text style={ { fontSize: 28 } }>To do</Text>
 			</View>
 			<View style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }>
 				<TextInput
@@ -32,13 +39,15 @@ export default function App() {
 				/>
 			</View>
 			<View style={ { flex: 9 } }>
-				<StoreContext.Consumer>
-					{ ( store ) =>
-						Object.keys( store.storeItems ).map( ( id ) => (
-							<Todo_Item key={ id } id={ id } />
-						) )
-					}
-				</StoreContext.Consumer>
+				{ Object.keys( items ).map( ( id ) => (
+					<Todo_Item
+						key={ id }
+						id={ id }
+						text={ items[id].text }
+						removeCallback={ deleteTodo }
+						/* updateCallback={ store.updateCallback( { id, textInput } ) } */
+					/>
+				) ) }
 			</View>
 		</View>
 	)

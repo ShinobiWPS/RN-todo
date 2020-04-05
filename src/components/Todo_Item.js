@@ -1,26 +1,24 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, CheckBox } from 'react-native'
 import React from 'react'
 
-import StoreContext from '../store/storeContext'
-import CheckboxPrebuilt from './CheckboxPrebuilt'
-
-export default function Todo_Item( { id } ) {
+export default function Todo_Item( {
+	id,
+	text,
+	removeCallback,
+	updateCallback,
+} ) {
 	return (
-		<StoreContext.Consumer>
-			{ ( store ) => (
-				<View style={ styles.container }>
-					<View style={ styles.iconCheck }>
-						<CheckboxPrebuilt todoItem={ store.storeItems[id] } />
-					</View>
-					<View style={ styles.todoText }>
-						<Text>{ store.storeItems[id].text }</Text>
-					</View>
-					<View style={ styles.iconCheck }>
-						<CheckboxPrebuilt todoItem={ store.storeItems[id] } />
-					</View>
-				</View>
-			) }
-		</StoreContext.Consumer>
+		<View style={ styles.container }>
+			<View style={ styles.iconCheck }>
+				<CheckBox onValueChange={ () => removeCallback( id ) } />
+			</View>
+			<View style={ styles.todoText }>
+				<Text>{ text }</Text>
+			</View>
+			<View style={ styles.iconCheck }>
+				<CheckBox onValueChange={ () => removeCallback( id ) } />
+			</View>
+		</View>
 	)
 }
 const styles = StyleSheet.create( {
