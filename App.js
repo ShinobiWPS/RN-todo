@@ -5,7 +5,7 @@ import Todo_Item from './src/components/Todo_Item'
 import storeItems from './src/store/storeItems'
 
 export default function App() {
-	const [textInput, settextInput] = useState( '' )
+	/* 	const [textInput, settextInput] = useState( '' ) */
 	const [items, setitems] = useState( storeItems )
 
 	function deleteTodo( id ) {
@@ -14,7 +14,12 @@ export default function App() {
 		setitems( newItems )
 		//todo save localstorage
 	}
-
+	function addTodo( todoText ) {
+		const todoID = `${ Math.random() }`
+		const newItems = { [todoID]: { text: todoText, checked: false }, ...items }
+		setitems( newItems )
+	}
+	console.log( 'items', items )
 	return (
 		<View
 			style={ {
@@ -33,9 +38,10 @@ export default function App() {
 						borderWidth: 1,
 						flexBasis: '80%',
 					} }
-					onChangeText={ ( text ) => settextInput( text ) }
-					value={ textInput }
-					placeholder="...write what to do"
+					/* onChangeText={ ( text ) => settextInput( text ) } */
+					onSubmitEditing={ ( event ) => addTodo( event.nativeEvent.text ) }
+					/* 	value={ textInput } */
+					placeholder="...watcha gonna do?"
 				/>
 			</View>
 			<View style={ { flex: 9 } }>
