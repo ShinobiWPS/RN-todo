@@ -14,12 +14,13 @@ export default function App() {
 		setitems( newItems )
 		//todo save localstorage
 	}
+
 	function addTodo( todoText ) {
 		const todoID = `${ Math.random() }`
 		const newItems = { [todoID]: { text: todoText, checked: false }, ...items }
 		setitems( newItems )
 	}
-	console.log( 'items', items )
+
 	return (
 		<View
 			style={ {
