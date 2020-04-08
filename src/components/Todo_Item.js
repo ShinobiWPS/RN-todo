@@ -1,12 +1,7 @@
 import { StyleSheet, View, Text, CheckBox } from 'react-native'
 import React from 'react'
 
-export default function Todo_Item( {
-	id,
-	text,
-	removeCallback,
-	updateCallback,
-} ) {
+export default function Todo_Item( { id, text, removeCallback } ) {
 	return (
 		<View style={ styles.container }>
 			<View style={ styles.iconCheck }>

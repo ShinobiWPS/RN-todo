@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { Text, View, TextInput } from 'react-native'
 
 import Todo_Item from './src/components/Todo_Item'
-import storeItems from './src/store/storeItems'
 
 export default function App() {
-	/* 	const [textInput, settextInput] = useState( '' ) */
-	const [items, setitems] = useState( storeItems )
+	const [items, setitems] = useState( {} )
 
 	function deleteTodo( id ) {
 		const newItems = { ...items }
