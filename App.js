@@ -1,22 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, TextInput } from 'react-native'
 
+import { offlineStorage } from './src/store/offlineStorage'
 import Todo_Item from './src/components/Todo_Item'
 
-export default function App() {
-	const [items, setitems] = useState( {} )
+const App = () => {
+	const [items, setitems] = useState()
+
+	useEffect( () => {
+		offlineStorage.get( 'todos' ).then( ( result ) => setitems( result ) )
+		return () => {}
+	}, [] )
 
 	function deleteTodo( id ) {
 		const newItems = { ...items }
 		delete newItems[id]
 		setitems( newItems )
-		//todo save localstorage
+		offlineStorage.set( 'todos', newItems )
 	}
 
 	function addTodo( todoText ) {
 		const todoID = `${ Math.random() }`
-		const newItems = { [todoID]: { text: todoText, checked: false }, ...items }
+		const newItems = { [todoID]: { text: todoText }, ...items }
 		setitems( newItems )
+		offlineStorage.set( 'todos', newItems )
 	}
 
 	return (
@@ -37,23 +44,24 @@ export default function App() {
 						borderWidth: 1,
 						flexBasis: '80%',
 					} }
-					/* onChangeText={ ( text ) => settextInput( text ) } */
 					onSubmitEditing={ ( event ) => addTodo( event.nativeEvent.text ) }
-					/* 	value={ textInput } */
-					placeholder="...watcha gonna do?"
+					placeholder="...watcha gonna do?✍"
 				/>
 			</View>
 			<View style={ { flex: 9 } }>
-				{ Object.keys( items ).map( ( id ) => (
-					<Todo_Item
-						key={ id }
-						id={ id }
-						text={ items[id].text }
-						removeCallback={ deleteTodo }
-						/* updateCallback={ store.updateCallback( { id, textInput } ) } */
-					/>
-				) ) }
+				{ items
+					&& Object.keys( items ).map( ( id ) => (
+						<Todo_Item
+							key={ id }
+							id={ id }
+							text={ items[id].text }
+							removeCallback={ deleteTodo }
+							/* updateCallback={ store.updateCallback( { id, textInput } ) } */
+						/>
+					) ) }
+				{ !items && alert( 'lol' ) }
 			</View>
 		</View>
 	)
 }
+export default App
