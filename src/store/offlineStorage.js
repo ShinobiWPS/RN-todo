@@ -5,9 +5,7 @@ export const offlineStorage = {
 	get: async( key ) => {
 		try {
 			const value = await AsyncStorage.getItem( key )
-			console.log( 'value from storage', value )
 			if ( value !== null ) return JSON.parse( value )
-			console.log( 'is null' )
 			return {}
 		} catch ( error ) {
 			alert( '"get" failed' )

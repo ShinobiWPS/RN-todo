@@ -56,10 +56,8 @@ const App = () => {
 							id={ id }
 							text={ items[id].text }
 							removeCallback={ deleteTodo }
-							/* updateCallback={ store.updateCallback( { id, textInput } ) } */
 						/>
 					) ) }
-				{ !items && alert( 'lol' ) }
 			</View>
 		</View>
 	)
