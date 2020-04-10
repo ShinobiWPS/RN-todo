@@ -31,13 +31,11 @@ const styles = StyleSheet.create( {
 	iconCheck: {
 		flexBasis: 44,
 		borderWidth: 1,
-		borderColor: '#00ff00',
 		display: 'flex',
 		justifyContent: 'center',
 	},
 	todoText: {
 		flex: 2,
 		borderWidth: 1,
-		borderColor: '#0000ff',
 	},
 } )
