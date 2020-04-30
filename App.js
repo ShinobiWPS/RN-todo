@@ -20,10 +20,12 @@ const App = () => {
 	}
 
 	function addTodo( todoText ) {
+		if ( todoText ) {
 		const todoID = `${ Math.random() }`
 		const newItems = { [todoID]: { text: todoText }, ...items }
 		setitems( newItems )
 		offlineStorage.set( 'todos', newItems )
+	}
 	}
 
 	return (
