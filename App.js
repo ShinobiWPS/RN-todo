@@ -23,54 +23,54 @@ export default function App() {
 
 	function addTodo( todoText ) {
 		if ( todoText ) {
-		const todoID = `${ Math.random() }`
-		const newItems = { [todoID]: { text: todoText }, ...items }
-		setitems( newItems )
-		offlineStorage.set( 'todos', newItems )
+			const todoID = `${ Math.random() }`
+			const newItems = { [todoID]: { text: todoText }, ...items }
+			setitems( newItems )
+			offlineStorage.set( 'todos', newItems )
 			addTodoInput.clear()
-	}
+		}
 	}
 
 	return (
 		<PaperProvider>
-		<View
-			style={ {
-				flex: 1,
-				marginTop: 24 /* todo-relative space */,
-			} }
-		>
+			<View
+				style={ {
+					flex: 1,
+					marginTop: 24 /* todo-relative space */,
+				} }
+			>
 				<View
 					style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }
 				>
 					<Title style={ { fontSize: 28 } }>To-do</Title>
-			</View>
+				</View>
 				<View
 					style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }
 				>
-				<TextInput
+					<TextInput
 						mode="outlined"
-					style={ {
-						flexBasis: '80%',
-					} }
-					onSubmitEditing={ ( event ) => addTodo( event.nativeEvent.text ) }
-					placeholder="...watcha gonna do?✍"
+						style={ {
+							flexBasis: '80%',
+						} }
+						onSubmitEditing={ ( event ) => addTodo( event.nativeEvent.text ) }
+						placeholder="...watcha gonna do?✍"
 						ref={ ( element ) => {
 							addTodoInput = element
 						} }
-				/>
+					/>
+				</View>
+				<View style={ { flex: 9 } }>
+					{ items
+						&& Object.keys( items ).map( ( id ) => (
+							<Todo_Item
+								key={ id }
+								id={ id }
+								text={ items[id].text }
+								removeCallback={ deleteTodo }
+							/>
+						) ) }
+				</View>
 			</View>
-			<View style={ { flex: 9 } }>
-				{ items
-					&& Object.keys( items ).map( ( id ) => (
-						<Todo_Item
-							key={ id }
-							id={ id }
-							text={ items[id].text }
-							removeCallback={ deleteTodo }
-						/>
-					) ) }
-			</View>
-		</View>
 		</PaperProvider>
 	)
 }
