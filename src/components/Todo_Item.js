@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text, CheckBox } from 'react-native'
 import React from 'react'
+import { StyleSheet, View, Text, CheckBox } from 'react-native'
 
 export default function Todo_Item( { id, text, removeCallback } ) {
 	return (
@@ -39,5 +39,6 @@ const styles = StyleSheet.create( {
 	todoText: {
 		flex: 2,
 		borderWidth: 1,
+		borderRadius: 5,
 	},
 } )
