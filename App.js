@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { View, FlatList, Text } from 'react-native'
+import { Provider as PaperProvider, Title, TextInput } from 'react-native-paper'
 
 import { offlineStorage } from './src/store/offlineStorage'
 import Todo_Item from './src/components/Todo_Item'
 
-const App = () => {
-	const [items, setitems] = useState()
+export default function App() {
+	const [items, setitems] = useState( {} )
 
+	let addTodoInput
 	useEffect( () => {
 		offlineStorage.get( 'todos' ).then( ( result ) => setitems( result ) )
 		return () => {}
@@ -25,29 +27,36 @@ const App = () => {
 		const newItems = { [todoID]: { text: todoText }, ...items }
 		setitems( newItems )
 		offlineStorage.set( 'todos', newItems )
+			addTodoInput.clear()
 	}
 	}
 
 	return (
+		<PaperProvider>
 		<View
 			style={ {
 				flex: 1,
 				marginTop: 24 /* todo-relative space */,
 			} }
 		>
-			<View style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }>
-				<Text style={ { fontSize: 28 } }>To do</Text>
+				<View
+					style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }
+				>
+					<Title style={ { fontSize: 28 } }>To-do</Title>
 			</View>
-			<View style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }>
+				<View
+					style={ { flex: 1, flexDirection: 'row', justifyContent: 'center' } }
+				>
 				<TextInput
+						mode="outlined"
 					style={ {
-						height: 40,
-						borderColor: 'gray',
-						borderWidth: 1,
 						flexBasis: '80%',
 					} }
 					onSubmitEditing={ ( event ) => addTodo( event.nativeEvent.text ) }
 					placeholder="...watcha gonna do?✍"
+						ref={ ( element ) => {
+							addTodoInput = element
+						} }
 				/>
 			</View>
 			<View style={ { flex: 9 } }>
@@ -62,6 +71,6 @@ const App = () => {
 					) ) }
 			</View>
 		</View>
+		</PaperProvider>
 	)
 }
-export default App
