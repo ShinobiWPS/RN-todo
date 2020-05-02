@@ -32,7 +32,9 @@ const styles = StyleSheet.create( {
 		flexBasis: 44,
 		borderWidth: 1,
 		display: 'flex',
+		flexDirection: 'row',
 		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	todoText: {
 		flex: 2,
